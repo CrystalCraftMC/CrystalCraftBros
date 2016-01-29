@@ -11,25 +11,28 @@ import org.mcsg.double0negative.supercraftbros.util.Colorizer;
 
 public class SkeletonClass extends PlayerClassBase{
 
-	
-	
+
 	public SkeletonClass(Player p) {
 		super(p);
-		// TODO Auto-generated constructor stub
 	}
 
 	@SuppressWarnings("deprecation")
 	public void PlayerSpawn(){
-		player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 8000, 2));
+		player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 999999, 2));
 
 		PlayerInventory i = player.getInventory();
 		i.clear();
 		
-		i.setHelmet(Colorizer.setColor(new ItemStack(Material.LEATHER_HELMET), 250, 250, 250));
-		i.setChestplate(Colorizer.setColor(new ItemStack(Material.LEATHER_CHESTPLATE), 250, 250, 250));
+		//i.setHelmet(Colorizer.setColor(new ItemStack(Material.LEATHER_HELMET), 250, 250, 250));
+        i.setHelmet(new ItemStack(Material.SKULL_ITEM, 1, (short) 0));
+
+		//i.setChestplate(Colorizer.setColor(new ItemStack(Material.LEATHER_CHESTPLATE), 250, 250, 250));
+		ItemStack chest = Colorizer.setColor(new ItemStack(Material.LEATHER_CHESTPLATE), 250, 250, 250);
+		chest.addUnsafeEnchantment(Enchantment.PROTECTION_PROJECTILE, 3);
+		i.setChestplate(chest);
 		
 		ItemStack legs = Colorizer.setColor(new ItemStack(Material.LEATHER_LEGGINGS), 250, 250, 250);
-		legs.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL,2);
+		legs.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
 		i.setLeggings(legs);
 		
 		
@@ -41,6 +44,11 @@ public class SkeletonClass extends PlayerClassBase{
 		i1.addUnsafeEnchantment(Enchantment.ARROW_KNOCKBACK, 2);
 		i1.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 1);
 		i.addItem(i1);
+
+        ItemStack i2 = new ItemStack(Material.BONE);
+        i2.addUnsafeEnchantment(Enchantment.KNOCKBACK, 2);
+        i2.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 1);
+        i.addItem(i2);
 		
 		i.addItem(new ItemStack(Material.ARROW, 1));
 		

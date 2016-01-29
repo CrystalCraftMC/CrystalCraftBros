@@ -1,4 +1,0 @@
-#Support for percents is in beta and thus may not work fully
-usepercents: false
-#Default seconds for countdown
-countdown: 60

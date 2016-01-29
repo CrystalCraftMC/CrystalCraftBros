@@ -1,7 +1,5 @@
 package org.mcsg.double0negative.supercraftbros.classes;
 
-import java.util.Random;
-
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -10,6 +8,8 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.mcsg.double0negative.supercraftbros.util.Colorizer;
+
+import java.util.Random;
 
 public class SpiderClass extends PlayerClassBase{
 
@@ -31,8 +31,8 @@ public class SpiderClass extends PlayerClassBase{
 	@SuppressWarnings("deprecation")
 	@Override 
 	public void PlayerSpawn(){
-		player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 8000, 4));
-		player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 8000, 2));
+		player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 999999, 4));
+		player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 999999, 2));
 
 		PlayerInventory i = player.getInventory();
 		i.clear();

@@ -9,8 +9,8 @@ public interface PlayerClass {
 	
 	Player player = null;
 
-	public enum ClassType{
-		ENDERMAN, CACTUS, CREEPER, SKELETON, SPIDER, WITHER, ZOMBIE, UNKNOWN
+	public enum ClassType {
+		BLAZE, CACTUS, CREEPER, ENDERMAN, GHAST, SKELETON, SPIDER, WITHER, WITCH, ZOMBIE, UNKNOWN
 	}
 	
 	public void PlayerDamaged();

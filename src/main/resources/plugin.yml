@@ -1,7 +1,9 @@
-name: SuperCraftBros
-authors: [Double0negative, MCSG, NextInfinity]
-version: 1.2.3
+name: SuperCraftBros-SmashEdition
+authors: [Double0negative, MCSG, NextInfinity, jflory7]
+version: 1.2.3-R1
 main: org.mcsg.double0negative.supercraftbros.SuperCraftBros
+website: http://crystalcraftmc.com
+
 commands:
   scb:
     description: Super Craft Bros

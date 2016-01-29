@@ -1,14 +1,9 @@
 package org.mcsg.double0negative.supercraftbros.classes;
 
-import java.util.Set;
-
-import net.minecraft.server.v1_8_R3.PacketPlayOutWorldEvent;
-
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
-import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
@@ -16,30 +11,33 @@ import org.bukkit.potion.PotionEffectType;
 import org.mcsg.double0negative.supercraftbros.GameManager;
 import org.mcsg.double0negative.supercraftbros.util.Colorizer;
 
+import java.util.Set;
+
 @SuppressWarnings("unused")
 public class EndermanClass extends PlayerClassBase{
 
 	public EndermanClass(Player p) {
 		super(p);
-		// TODO Auto-generated constructor stub
 	}
-
-
-
 
 	@SuppressWarnings("deprecation")
 	@Override 
 	public void PlayerSpawn(){
-		player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 80000, 2));
+		player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 999999, 2));
 
 		PlayerInventory i = player.getInventory();
 		i.clear();
 
-		i.setHelmet(Colorizer.setColor(new ItemStack(Material.LEATHER_HELMET), 37, 6, 39));
-		i.setChestplate(Colorizer.setColor(new ItemStack(Material.LEATHER_CHESTPLATE), 37, 6, 39));
+		//i.setHelmet(Colorizer.setColor(new ItemStack(Material.LEATHER_HELMET), 37, 6, 39));
+        i.setHelmet(new ItemStack(Material.ENDER_PORTAL_FRAME));
+
+		//i.setChestplate(Colorizer.setColor(new ItemStack(Material.LEATHER_CHESTPLATE), 37, 6, 39));
+        ItemStack chest = Colorizer.setColor(new ItemStack(Material.LEATHER_CHESTPLATE), 37, 6, 39);
+        chest.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
+        i.setChestplate(chest);
 
 		ItemStack legs = Colorizer.setColor(new ItemStack(Material.LEATHER_LEGGINGS), 37, 6, 39);
-		legs.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
+		legs.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
 		i.setLeggings(legs);
 
 		ItemStack boot = Colorizer.setColor(new ItemStack(Material.LEATHER_BOOTS),  37, 6, 39);
@@ -52,7 +50,7 @@ public class EndermanClass extends PlayerClassBase{
 		i1.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 2);
 		i.addItem(i1);
 
-		i.addItem(new ItemStack(Material.ENDER_PEARL, 20));
+		i.addItem(new ItemStack(Material.ENDER_PEARL, 16));
 
 		player.updateInventory();
 

@@ -1,10 +1,5 @@
 package org.mcsg.double0negative.supercraftbros.classes;
 
-import java.util.Random;
-
-import net.minecraft.server.v1_8_R3.Packet;
-import net.minecraft.server.v1_8_R3.PacketPlayOutWorldEvent;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -20,6 +15,8 @@ import org.mcsg.double0negative.supercraftbros.Game;
 import org.mcsg.double0negative.supercraftbros.GameManager;
 import org.mcsg.double0negative.supercraftbros.util.Colorizer;
 
+import java.util.Random;
+
 @SuppressWarnings("unused")
 public class WitchClass extends PlayerClassBase{
 
@@ -33,8 +30,8 @@ public class WitchClass extends PlayerClassBase{
 	@SuppressWarnings("deprecation")
 	@Override 
 	public void PlayerSpawn(){
-		player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 80000, 4));
-		player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 80000, 4));
+		player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 999999, 4));
+		player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 999999, 1));
 
 		PlayerInventory i = player.getInventory();
 		i.clear();
@@ -47,20 +44,18 @@ public class WitchClass extends PlayerClassBase{
 		i.setLeggings(legs);
 
 		ItemStack boot = Colorizer.setColor(new ItemStack(Material.LEATHER_BOOTS),   9, 141, 40);
-		boot.addUnsafeEnchantment(Enchantment.PROTECTION_FALL, 1);
+		boot.addUnsafeEnchantment(Enchantment.PROTECTION_FALL, 10);
 		i.setBoots(boot);
 
 		ItemStack i1 = new ItemStack(Material.EMERALD);
-		i1.addUnsafeEnchantment(Enchantment.KNOCKBACK, 5);
+		i1.addUnsafeEnchantment(Enchantment.KNOCKBACK, 3);
 		i.addItem(i1);
-
-
 
 		ItemStack i2 = new ItemStack(373, 5, (short)16420);
 		i.addItem(i2);
 
-		i.addItem(new ItemStack(Material.SUGAR));
-
+		//TODO Bring back Witch's flying ability.
+		//i.addItem(new ItemStack(Material.SUGAR));
 
 		player.updateInventory();
 	}
@@ -73,14 +68,14 @@ public class WitchClass extends PlayerClassBase{
 			victim.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 150, 5));
 		}		
 		if(i == 6){
-			victim.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 150, 1000));
+			victim.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 120, 1000));
 		}
 		if(i == 7){
 			victim.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 60, 5));
 		}
 	}
 
-	public void PlayerInteract(Action a){
+	public void PlayerInteract(Action a) {/*
 		if(sugar < 2){
 			if(player.getItemInHand().getType() == Material.SUGAR && ( a == Action.LEFT_CLICK_AIR || a == Action.LEFT_CLICK_BLOCK)){
 				player.setVelocity(new Vector(0, 2, 0));
@@ -95,7 +90,7 @@ public class WitchClass extends PlayerClassBase{
 			public void run(){
 				sugar--;
 			}
-		}, 400);
+		}, 400);*/
 	}
 
 	public void PlayerMove(){

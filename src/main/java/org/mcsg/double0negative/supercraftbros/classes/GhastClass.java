@@ -2,7 +2,6 @@ package org.mcsg.double0negative.supercraftbros.classes;
 
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemStack;
@@ -15,13 +14,12 @@ public class GhastClass extends PlayerClassBase{
 
 	public GhastClass(Player p) {
 		super(p);
-		// TODO Auto-generated constructor stub
 	}
 	
 	@SuppressWarnings("deprecation")
 	@Override 
 	public void PlayerSpawn(){
-		player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 88000, 4));
+		player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 999999, 8));
 
 		PlayerInventory i = player.getInventory();
 		i.clear();
@@ -46,17 +44,17 @@ public class GhastClass extends PlayerClassBase{
 		i1.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 2);
 		i.addItem(i1);
 
-		i.addItem(new ItemStack(Material.FIREBALL));
+		//i.addItem(new ItemStack(Material.FIREBALL));
 
 		player.updateInventory();
 
 	}
 
-	public void PlayerInteract(Action a){
+	public void PlayerInteract(Action a) {/*
 		if(player.getItemInHand().getType() == Material.FIREBALL){
 			Fireball e = player.launchProjectile(Fireball.class);
 			e.setVelocity(e.getVelocity().multiply(10));
-		}
+		}*/
 	}
 	
 	@Override

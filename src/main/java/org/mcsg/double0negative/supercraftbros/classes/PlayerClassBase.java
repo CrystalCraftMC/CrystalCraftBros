@@ -73,7 +73,7 @@ public class PlayerClassBase implements PlayerClass {
 	}
 
 	public String getName(){
-		return "Unkown";
+		return "Unknown";
 	}
 
 	
@@ -94,13 +94,7 @@ public class PlayerClassBase implements PlayerClass {
 
 	}
 
-	/*
-	 * [7:30:07 PM] DubstepCraig: I'd rather have corrupt server and earn loads of money then have a HQ server and only earn 15k a month
-	 * 
-	 */
-	
-	
-	
+
 	public void PlayerMove() {		
 		if(player.isFlying()){
 			player.setFlying(false);

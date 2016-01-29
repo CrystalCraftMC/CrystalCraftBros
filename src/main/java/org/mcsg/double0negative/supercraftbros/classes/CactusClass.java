@@ -14,29 +14,25 @@ import org.mcsg.double0negative.supercraftbros.util.Colorizer;
 
 public class CactusClass extends PlayerClassBase{
 
-
-
-
-
 	public CactusClass(Player p) {
 		super(p);
 		// TODO Auto-generated constructor stub
 	}
 
-
 	@SuppressWarnings("deprecation")
 	@Override 
 	public void PlayerSpawn(){
-		player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 80000, 2));
+		player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 999999, 2));
 
 		PlayerInventory i = player.getInventory();
 		i.clear();
 
-		i.setHelmet(Colorizer.setColor(new ItemStack(Material.LEATHER_HELMET), 50, 150, 50));
+		//i.setHelmet(Colorizer.setColor(new ItemStack(Material.LEATHER_HELMET), 50, 150, 50));
+		i.setHelmet(new ItemStack(Material.CACTUS));
 
 		ItemStack chest = Colorizer.setColor(new ItemStack(Material.LEATHER_CHESTPLATE), 50, 150, 50);
 		chest.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
-		chest.addUnsafeEnchantment(Enchantment.THORNS, 4);
+		chest.addUnsafeEnchantment(Enchantment.THORNS, 2);
 		i.setChestplate(chest);
 
 		ItemStack legs = Colorizer.setColor(new ItemStack(Material.LEATHER_LEGGINGS), 50, 150, 50);
@@ -49,8 +45,9 @@ public class CactusClass extends PlayerClassBase{
 
 
 		ItemStack i1 = new ItemStack(Material.WOOD_SWORD);
-		i1.addUnsafeEnchantment(Enchantment.KNOCKBACK, 1);
-		i1.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 2);
+		i1.addUnsafeEnchantment(Enchantment.KNOCKBACK, 2);
+		i1.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 1);
+		i1.addUnsafeEnchantment(Enchantment.DURABILITY, 10);
 		i.addItem(i1);
 
 
@@ -76,6 +73,5 @@ public class CactusClass extends PlayerClassBase{
 	public String getName(){
 		return "Cactus";
 	}
-
 
 }

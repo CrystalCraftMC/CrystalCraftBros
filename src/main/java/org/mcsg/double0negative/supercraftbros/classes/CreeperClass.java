@@ -21,7 +21,6 @@ public class CreeperClass extends PlayerClassBase{
 
 	public CreeperClass(Player p) {
 		super(p);
-		// TODO Auto-generated constructor stub
 	}
 
 	@SuppressWarnings("deprecation")
@@ -29,18 +28,17 @@ public class CreeperClass extends PlayerClassBase{
 	public void PlayerPlaceBlock(Block b){
 		
 		if(b.getTypeId() == 46){
-			   final Entity tnt1 = b.getWorld().spawn(b.getLocation(), TNTPrimed.class);
-		        ((TNTPrimed)tnt1).setFuseTicks(31);
-		        
-		        Bukkit.getScheduler().scheduleSyncDelayedTask(GameManager.getInstance().getPlugin(), new Runnable(){
-		        	public void run(){
-		        		Location l = tnt1.getLocation();
-		        		l.getWorld().createExplosion(l.getX(), l.getY(), l.getZ(), 6, false, false);
-		        		tnt1.remove();
-		        		
-		        	}
-		        }, 30);
-		        
+            final Entity tnt1 = b.getWorld().spawn(b.getLocation(), TNTPrimed.class);
+            ((TNTPrimed)tnt1).setFuseTicks(31);
+
+            Bukkit.getScheduler().scheduleSyncDelayedTask(GameManager.getInstance().getPlugin(), new Runnable(){
+                public void run(){
+                    Location l = tnt1.getLocation();
+                    l.getWorld().createExplosion(l.getX(), l.getY(), l.getZ(), 4, true, false);
+                    tnt1.remove();
+
+                }
+            }, 30);
 		}
 	}
 	
@@ -48,12 +46,13 @@ public class CreeperClass extends PlayerClassBase{
 	@SuppressWarnings("deprecation")
 	@Override 
 	public void PlayerSpawn(){
-		player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 8000, 2));
+		player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 999999, 2));
 
 		PlayerInventory i = player.getInventory();
 		i.clear();
 		
-		i.setHelmet(Colorizer.setColor(new ItemStack(Material.LEATHER_HELMET), 0, 200, 0));
+		//i.setHelmet(Colorizer.setColor(new ItemStack(Material.LEATHER_HELMET), 0, 200, 0));
+        i.setHelmet(new ItemStack(Material.SKULL_ITEM, 1, (short) 4));
 		i.setChestplate(Colorizer.setColor(new ItemStack(Material.LEATHER_CHESTPLATE), 0, 200, 0));
 		
 		ItemStack legs = Colorizer.setColor(new ItemStack(Material.LEATHER_LEGGINGS), 0, 200, 0);
@@ -61,7 +60,7 @@ public class CreeperClass extends PlayerClassBase{
 		i.setLeggings(legs);
 		
 		ItemStack boot = Colorizer.setColor(new ItemStack(Material.LEATHER_BOOTS),  0, 0, 0);
-		boot.addUnsafeEnchantment(Enchantment.PROTECTION_FALL, 1);
+		boot.addUnsafeEnchantment(Enchantment.PROTECTION_FALL, 10);
 		i.setBoots(boot);
 				
 		ItemStack i1 = new ItemStack(Material.SULPHUR);
@@ -70,8 +69,7 @@ public class CreeperClass extends PlayerClassBase{
 		
 		i.addItem(new ItemStack(46, 10));
 
-		
-		ItemStack i2 = new ItemStack(373, 10, (short)16396);
+		ItemStack i2 = new ItemStack(373, 6, (short)16396);
 		i.addItem(i2);
 		
 		
