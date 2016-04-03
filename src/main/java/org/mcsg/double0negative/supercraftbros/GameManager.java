@@ -71,11 +71,15 @@ public class GameManager {
 	public void LoadGames() {
 		FileConfiguration c = SettingsManager.getInstance().getSystemConfig();
 		games.clear();
-		for(String a : c.getConfigurationSection("system.arenas").getKeys(false)){
-			if (c.isSet("system.arenas." + a + ".x1")) {
-				System.out.println("Loading Arena: " + a);
-				games.add(new Game(a));
+		if(c.contains("system.arenas")){
+			for(String a : c.getConfigurationSection("system.arenas").getKeys(false)){
+				if (c.isSet("system.arenas." + a + ".x1")) {
+					System.out.println("Loading Arena: " + a);
+					games.add(new Game(a));
+				}
 			}
+		}else{
+			System.out.println("No games in config!");
 		}
 	}
 	
@@ -86,22 +90,27 @@ public class GameManager {
 		classLeg.clear();
 		classBoots.clear();
 		classEffects.clear();
-		for(String i : SettingsManager.getInstance().getClasses().getConfigurationSection("classes").getKeys(false)){
-			String key = ("classes." + i);
-			String name = SettingsManager.getInstance().getClasses().getString(key + ".name").toLowerCase();
-			ArrayList<ItemStack> inv = getInventory(key);
-			classList.put(name, inv);
-			ItemStack i1 = getHelmet(key);
-			classHelmet.put(name, i1);
-			ItemStack i2 = getChestplate(key);
-			classChest.put(name, i2);
-			ItemStack i3 = getLeggings(key);
-			classLeg.put(name, i3);
-			ItemStack i4 = getBoots(key);
-			classBoots.put(name, i4);
-			ArrayList<PotionEffect> effects = getEffects(key);
-			classEffects.put(name, effects);
-			i = i+1;
+		FileConfiguration c = SettingsManager.getInstance().getClasses();
+		if(c.contains("classes")){
+			for(String i : c.getConfigurationSection("classes").getKeys(false)){
+				String key = ("classes." + i);
+				String name = i.toLowerCase();
+				ArrayList<ItemStack> inv = getInventory(key);
+				classList.put(name, inv);
+				ItemStack i1 = getHelmet(key);
+				classHelmet.put(name, i1);
+				ItemStack i2 = getChestplate(key);
+				classChest.put(name, i2);
+				ItemStack i3 = getLeggings(key);
+				classLeg.put(name, i3);
+				ItemStack i4 = getBoots(key);
+				classBoots.put(name, i4);
+				ArrayList<PotionEffect> effects = getEffects(key);
+				classEffects.put(name, effects);
+				i = i+1;
+			}
+		}else{
+			System.out.println("No classes in config!");
 		}
 	}
 	
@@ -154,14 +163,16 @@ public class GameManager {
 					int idm = c.getInt(id + ".items." + item + ".id-modifier");
 					is.setDurability((short)idm);
 				}
-				for(String e : c.getConfigurationSection(id + ".items." + item + ".enchantments").getKeys(false)){
-					Enchantment enchant = Enchantment.getByName(e);
-					int level = Integer.parseInt(c.getString(id + ".items." + item + ".enchantments." + e));
-					is.addUnsafeEnchantment(enchant, level);
+				if(c.contains(id + ".items." + item + ".enchantments")){
+					for(String e : c.getConfigurationSection(id + ".items." + item + ".enchantments").getKeys(false)){
+						Enchantment enchant = Enchantment.getByName(e);
+						int level = Integer.parseInt(c.getString(id + ".items." + item + ".enchantments." + e));
+						is.addUnsafeEnchantment(enchant, level);
+					}
 				}
 				inv.add(is);
 			}catch(Exception e){
-				System.out.println("Error adding item " + item + " for class " + c.getString(id + ".name") + ", please check the yml file.");
+				System.out.println("Error adding item " + item + " for class " + id + ", please check the yml file.");
 			}
 		}
 		return inv;
@@ -179,11 +190,22 @@ public class GameManager {
 				int b = Integer.parseInt(rgb[2]);
 				is = Colorizer.setColor(is, r, g, b);
 			}
-			if(m == Material.SKULL && c.contains(id + ".helmet.player")){
+			if(c.contains(id + ".helmet.id-modifier")){
+				int idm = c.getInt(id + ".helmet.id-modifier");
+				is.setDurability((short)idm);
+			}
+			if(c.getInt(id + ".helmet.id") == 397 && c.getInt(id + ".helmet.id-modifier") == 3 && c.contains(id + ".helmet.player")){
 				String player = c.getString(id + ".helmet.player");
 				SkullMeta meta = (SkullMeta) is.getItemMeta();
 				meta.setOwner(player);
 				is.setItemMeta(meta);
+			}
+			if(c.contains(id + ".helmet.enchantments")){
+				for(String e : c.getConfigurationSection(id + ".helmet.enchantments").getKeys(false)){
+					Enchantment enchant = Enchantment.getByName(e);
+					int level = Integer.parseInt(c.getString(id + ".helmet.enchantments." + e));
+					is.addUnsafeEnchantment(enchant, level);
+				}
 			}
 			return is;
 		}else{
@@ -203,6 +225,13 @@ public class GameManager {
 				int b = Integer.parseInt(rgb[2]);
 				is = Colorizer.setColor(is, r, g, b);
 			}
+			if(c.contains(id + ".chestplate.enchantments")){
+				for(String e : c.getConfigurationSection(id + ".chestplate.enchantments").getKeys(false)){
+					Enchantment enchant = Enchantment.getByName(e);
+					int level = Integer.parseInt(c.getString(id + ".chestplate.enchantments." + e));
+					is.addUnsafeEnchantment(enchant, level);
+				}
+			}
 			return is;
 		}else{
 			return new ItemStack(Material.AIR);
@@ -221,6 +250,13 @@ public class GameManager {
 				int b = Integer.parseInt(rgb[2]);
 				is = Colorizer.setColor(is, r, g, b);
 			}
+			if(c.contains(id + ".leggings.enchantments")){
+				for(String e : c.getConfigurationSection(id + ".leggings.enchantments").getKeys(false)){
+					Enchantment enchant = Enchantment.getByName(e);
+					int level = Integer.parseInt(c.getString(id + ".leggings.enchantments." + e));
+					is.addUnsafeEnchantment(enchant, level);
+				}
+			}
 			return is;
 		}else{
 			return new ItemStack(Material.AIR);
@@ -238,6 +274,13 @@ public class GameManager {
 				int g = Integer.parseInt(rgb[1]);
 				int b = Integer.parseInt(rgb[2]);
 				is = Colorizer.setColor(is, r, g, b);
+			}
+			if(c.contains(id + ".boots.enchantments")){
+				for(String e : c.getConfigurationSection(id + ".boots.enchantments").getKeys(false)){
+					Enchantment enchant = Enchantment.getByName(e);
+					int level = Integer.parseInt(c.getString(id + ".boots.enchantments." + e));
+					is.addUnsafeEnchantment(enchant, level);
+				}
 			}
 			return is;
 		}else{
@@ -311,7 +354,7 @@ public class GameManager {
 	public Game getGame(String a) {
 		//int t = gamemap.get(a);
 		for (Game g: games) {
-			if (g.getID() == a) {
+			if (g.getID().equalsIgnoreCase(a)) {
 				return g;
 			}
 		}
@@ -409,9 +452,10 @@ public class GameManager {
 		c.set("system.arenas." + name + ".max", 4);
 		SettingsManager.getInstance().saveSystemConfig();
 		hotAddArena(name);
-		Message.send(pl, ChatColor.GREEN + "Arena " + name + " Succesfully added");
-
+		Message.send(pl, ChatColor.GREEN + "Arena " + name.toUpperCase() + " succesfully added");
 	}
+	
+	
 
 	private void hotAddArena(String no) {
 		Game game = new Game(no);
