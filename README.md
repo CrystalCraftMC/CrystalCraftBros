@@ -1,4 +1,4 @@
-# SuperCraftBros Reloaded
+# SuperCraftBros Reloaded [![Build Status](https://travis-ci.org/CrystalCraftMC/CrystalCraftBros.svg?branch=master)](https://travis-ci.org/CrystalCraftMC/CrystalCraftBros)
 
 ##### Double0negative's SuperCraftBros plugin, reloaded!
 
