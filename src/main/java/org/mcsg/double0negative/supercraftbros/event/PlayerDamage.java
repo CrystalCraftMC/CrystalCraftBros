@@ -74,15 +74,9 @@ public class PlayerDamage implements Listener{
 	
 	@EventHandler
 	public void PlayerDamaged(PlayerDeathEvent e){
-<<<<<<< HEAD
-		Player p = e.getEntity();
-		int i = GameManager.getInstance().getPlayerGameId(p);
-		if(i != -1){
-=======
 		Player p = (Player)e.getEntity();
 		String i = GameManager.getInstance().getPlayerGameId(p);
 		if(!(i == null)){
->>>>>>> b26a2c710f291c4eb14c9348bc7f791381114e85
 			e.getDrops().clear();
 			GameManager.getInstance().getGame(i).killPlayer(p, e.getDeathMessage());
 			e.setDeathMessage(null);
