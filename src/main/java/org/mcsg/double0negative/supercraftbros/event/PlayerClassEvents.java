@@ -8,12 +8,10 @@
 
 package org.mcsg.double0negative.supercraftbros.event;
 
-import net.minecraft.server.v1_8_R3.Packet;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Player;
@@ -91,12 +89,12 @@ public class PlayerClassEvents implements Listener{
 				if(sugar.get(p) == null){
 					sugar.put(p, true);
 				}
-				if(e.getPlayer().getItemInHand().getType() == Material.DIAMOND_AXE){
+				if(e.getPlayer().getInventory().getItemInMainHand().getType() == Material.DIAMOND_AXE){
 					Smash(p);
-				}else if(p.getItemInHand().getType() == Material.EYE_OF_ENDER){
+				}else if(p.getInventory().getItemInMainHand().getType() == Material.EYE_OF_ENDER){
 					e.setCancelled(true);
 				}else if(fire.get(p)){
-					if(p.getItemInHand().getType() == Material.FIREBALL){
+					if(p.getInventory().getItemInMainHand().getType() == Material.FIREBALL){
 						Fireball f = p.launchProjectile(Fireball.class);
 						f.setVelocity(f.getVelocity().multiply(10));
 						fire.put(p, false);
@@ -107,7 +105,10 @@ public class PlayerClassEvents implements Listener{
                 		}, 600);
 					}
 				}else if(sugar.get(p)){
-                    if(p.getItemInHand().getType() == Material.SUGAR && (e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK)){
+                    if(p.getInventory().getItemInMainHand().getType() == Material.SUGAR && (e.getAction() == Action
+							.LEFT_CLICK_AIR || e
+							.getAction()
+							== Action.LEFT_CLICK_BLOCK)){
                         p.setVelocity(new Vector(0, 2, 0));
                         sugar.put(p, false);
                         Bukkit.getScheduler().scheduleSyncDelayedTask(GameManager.getInstance().getPlugin(), new Runnable(){
@@ -116,7 +117,7 @@ public class PlayerClassEvents implements Listener{
                 			}
                 		}, 100);
                     }
-                    if(p.getItemInHand().getType() == Material.SUGAR && (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK)){
+                    if(p.getInventory().getItemInMainHand().getType() == Material.SUGAR && (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK)){
                         p.setVelocity(p.getLocation().getDirection().multiply(4));
                         sugar.put(p, false);
                         Bukkit.getScheduler().scheduleSyncDelayedTask(GameManager.getInstance().getPlugin(), new Runnable(){
@@ -159,7 +160,7 @@ public class PlayerClassEvents implements Listener{
 			}
 			for(Entity pl:p.getWorld().getEntities()){
 				if(pl != p){
-					ItemStack s = p.getItemInHand();
+					ItemStack s = p.getInventory().getItemInMainHand();
 					Location l2 = pl.getLocation();
 					double d = pl.getLocation().distance(p.getLocation());
 					if(d < 5){
@@ -185,13 +186,15 @@ public class PlayerClassEvents implements Listener{
 			}, 5);
 		}
 	}
-	
+
+	/*
 	@SuppressWarnings("rawtypes")
 	public void SendPacketToAll(Packet p, Player player){
 		for(Player pl: GameManager.getInstance().getGame(GameManager.getInstance().getPlayerGameId(player)).getActivePlayers()){
 			((CraftPlayer)pl).getHandle().playerConnection.sendPacket(p);
 		}
 	}
+	*/
 
 	@EventHandler
 	public void onMove(PlayerMoveEvent e){
